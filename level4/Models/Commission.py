@@ -3,10 +3,10 @@ class Commission:
     assistance_fee: int
     drivy_fee: int
     def __init__(self, total_price: int, number_of_days:int):
-        commissioned_part = total_price * 30 // 100
-        self.insurance_fee = commissioned_part // 2
+        self.commissioned_part = total_price * 30 // 100
+        self.insurance_fee = self.commissioned_part // 2
         self.assistance_fee = 100 * number_of_days
-        self.drivy_fee = commissioned_part - self.assistance_fee - self.insurance_fee
+        self.drivy_fee = self.commissioned_part - self.assistance_fee - self.insurance_fee
         
     def to_json(self) -> dict:
         return {
