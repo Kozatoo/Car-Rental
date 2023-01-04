@@ -1,6 +1,6 @@
 
 from typing import List
-from Models.Rental import *
+from Models.rental import *
 import enum
 
 class InvoiceType(enum.Enum):
@@ -12,6 +12,7 @@ class Invoice:
         self.who= who
         self.type= type
         self.amount= amount
+        
     @staticmethod
     def getRentalInvoices(rental) -> List["Invoice"]:
         return [Invoice("driver", InvoiceType.Debit, rental.price),

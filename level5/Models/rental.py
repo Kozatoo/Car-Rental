@@ -1,8 +1,8 @@
 from datetime import datetime
 from typing import List
-from Models.Car import Car
-from Models.Invoice import *
-from Models.Commission import Commission
+from Models.car import Car
+from Models.invoice import *
+from Models.commission import Commission
 
 sales =  [
     {
@@ -20,9 +20,9 @@ sales =  [
 ]
 
 class Rental:
-    def __init__(self, id: int, car_id: int , start_date: str, end_date: str, distance: int) -> None:
+    def __init__(self, id: int, car: Car, start_date: str, end_date: str, distance: int) -> None:
+        
         self.id = id
-        self.car_id = car_id
         date_format ="%Y-%m-%d"
         try:
             self.start_date = datetime.strptime(start_date, date_format)
@@ -31,6 +31,8 @@ class Rental:
             print(f"Invalid data format: {end_date, start_date} ")
             raise Exception
         self.distance = distance
+        self.CalculatePrice(car)
+        self.setInvoices()
 
     def rentalDuration(self) -> int :
         if(self.duration == None):
@@ -66,15 +68,14 @@ class Rental:
             raise Exception
         self.invoices = Invoice.getRentalInvoices(self)        
     
-    def to_json(self)-> dict:
+    def to_json(self, car: Car = None)-> dict:
         # return { "id" : self.id,
         #          "price" : self.price,
         #          "commission" : self.commission.to_json() }  
         return { "id" : self.id, "actions": Invoice.list_to_json(self.invoices)}
         
             
-    id: int
-    car_id: int 
+    id: int 
     start_date: datetime
     end_date: datetime
     distance: int
