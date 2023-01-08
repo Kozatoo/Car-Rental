@@ -36,6 +36,9 @@ class Rental:
 
     def rentalDuration(self) -> int :
         if(self.duration == None):
+            if self.end_date < self.start_date:
+                self.duration = 0 
+                print(f"This rental starting date is after the ending date! ID:{self.id}")
             self.duration =(self.end_date-self.start_date).days + 1
         return self.duration
         
